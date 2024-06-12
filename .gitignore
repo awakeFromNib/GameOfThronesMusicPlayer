@@ -1,0 +1,25 @@
+# Xcode Project
+**/*.xcodeproj/xcuserdata/
+**/*.xcworkspace/xcuserdata/
+**/*.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+**/*.xcworkspace/xcshareddata/*.xccheckout
+**/*.xcworkspace/xcshareddata/*.xcscmblueprint
+
+
+# Build
+build/
+DerivedData
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# XCodeGen
+*.xcworkspace/
+
+
+# Other
+*.DS_Store
+/linter
+/ci
+.vscode/

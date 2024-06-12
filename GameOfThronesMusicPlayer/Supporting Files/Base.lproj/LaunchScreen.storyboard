@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GOT1" translatesAutoresizingMaskIntoConstraints="NO" id="6BA-wk-Pjv">
+                                <rect key="frame" x="0.0" y="220" width="393" height="598"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="598" id="4O1-LZ-TXb"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GAME OF THRONES MUSIC PLAYER" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="0" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="u2S-03-XBN">
+                                <rect key="frame" x="0.0" y="59" width="393" height="118"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="37"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="u2S-03-XBN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Ajg-50-H8O"/>
+                            <constraint firstItem="6BA-wk-Pjv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Bre-C7-b9i"/>
+                            <constraint firstItem="6BA-wk-Pjv" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="O54-2V-u6S"/>
+                            <constraint firstItem="6BA-wk-Pjv" firstAttribute="top" relation="lessThanOrEqual" secondItem="u2S-03-XBN" secondAttribute="bottom" priority="999" constant="43" id="SMG-yp-a5R"/>
+                            <constraint firstItem="u2S-03-XBN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="YNS-fn-1V0"/>
+                            <constraint firstItem="6BA-wk-Pjv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="d0j-x1-kmQ"/>
+                            <constraint firstItem="6BA-wk-Pjv" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="efs-Kk-5M5"/>
+                            <constraint firstItem="6BA-wk-Pjv" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="um3-vR-8cw"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="u2S-03-XBN" secondAttribute="trailing" id="yIl-Jc-wd9"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52.671755725190835" y="374.64788732394368"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="GOT1" width="1000" height="1500"/>
+    </resources>
+</document>
