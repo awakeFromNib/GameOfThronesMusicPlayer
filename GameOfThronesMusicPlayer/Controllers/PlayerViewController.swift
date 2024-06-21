@@ -329,6 +329,8 @@ class PlayerViewController: UIViewController {
 		super.viewWillDisappear(animated)
 		if let player = player {
 			player.stop()
+			shrinkImage()
+			playPauseButton.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
 		}
 	}
 }
