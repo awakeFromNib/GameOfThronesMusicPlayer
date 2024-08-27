@@ -134,7 +134,6 @@ class MusicViewController: UIViewController {
 	}
 }
 
-
 // MARK: - Table View
 extension MusicViewController: UITableViewDelegate, UITableViewDataSource {
 

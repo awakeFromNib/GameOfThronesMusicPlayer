@@ -40,10 +40,7 @@ class PlayerViewController: UIViewController {
 		let label = UILabel()
 		label.textAlignment = .center
 		label.numberOfLines = 0 // line wrap
-
 		label.font = .GameOfThrones.basic.size(of: 14)
-
-
 		return label
 	}()
 
@@ -52,6 +49,16 @@ class PlayerViewController: UIViewController {
 		label.textAlignment = .center
 		label.numberOfLines = 0 // line wrap
 		label.font = .GameOfThrones.basic.size(of: 11)
+		return label
+	}()
+
+	private let leftTimeLabel: UILabel = {
+		let label = UILabel()
+		label.textAlignment = .left
+		label.numberOfLines = 0 // line wrap
+//		label.backgroundColor = .yellow
+		label.font = .GameOfThrones.basic.size(of: 12)
+//		label.text = "1:52"
 		return label
 	}()
 
@@ -91,15 +98,10 @@ class PlayerViewController: UIViewController {
 			try AVAudioSession.sharedInstance().setCategory(.playback)
 			try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
 
-			guard let urlString = urlString else {
-				return
-			}
-
+			guard let urlString = urlString else { return }
 			player = try AVAudioPlayer(contentsOf: URL(string: urlString)!)
 
-			guard let player = player else {
-				return
-			}
+			guard let player = player else { return }
 			player.play()
 
 			player.delegate = self
@@ -110,7 +112,6 @@ class PlayerViewController: UIViewController {
 				trackSlider.value = 0.0
 				trackSlider.maximumValue = Float(player.duration)
 				trackSlider.thumbTintColor = .systemBackground
-
 			}
 		}
 		catch {
@@ -142,6 +143,7 @@ class PlayerViewController: UIViewController {
 
 		holder.addSubview(songNameLabel)
 		holder.addSubview(artistNameLabel)
+		holder.addSubviews(leftTimeLabel)
 
 		// MARK: - Player controls
 		let nextButton = UIButton()
@@ -184,11 +186,13 @@ class PlayerViewController: UIViewController {
 		holder.addSubview(nextButton)
 		holder.addSubview(backButton)
 
+
 		// MARK: - Volume slider
 		let volumeSlider = UISlider(frame: CGRect(x: 20,
 												  y: holder.frame.size.height-100,
 												  width: holder.frame.size.width-40,
 												  height: 50))
+		
 		let volumeSliderCurrentThumbImage: UIImage = {
 			var thumbImage = UIImage()
 			thumbImage = UIImage(systemName: "circle.fill", withConfiguration: UIImage.SymbolConfiguration(weight: .regular))!.withTintColor(.systemGray3, renderingMode: .alwaysOriginal)
@@ -202,7 +206,7 @@ class PlayerViewController: UIViewController {
 		volumeSlider.minimumValue = 0.0
 		volumeSlider.maximumValue = 1.0
 		volumeSlider.value = 1.0
-		volumeSlider.addTarget(self, action: #selector(didSlideSlider(_:)), for: .valueChanged)
+		volumeSlider.addTarget(self, action: #selector(didSlideVolumeSlider(_:)), for: .valueChanged)
 		holder.addSubview(volumeSlider)
 
 		//MARK: - Track slider
@@ -210,6 +214,7 @@ class PlayerViewController: UIViewController {
 								   y: holder.frame.size.height-350,
 								   width: holder.frame.size.width-40,
 								   height: 140)
+
 		let trackSliderCurrentThumbImage: UIImage = {
 			var thumbImage = UIImage()
 			thumbImage = UIImage(systemName: "circle.fill", withConfiguration: UIImage.SymbolConfiguration(weight: .regular))!.withTintColor(.systemGray3, renderingMode: .alwaysOriginal)
@@ -217,24 +222,31 @@ class PlayerViewController: UIViewController {
 		}()
 
 		trackSlider.setThumbImage(trackSliderCurrentThumbImage, for: .normal)
-		//        trackSlider.isContinuous = true
 		trackSlider.minimumTrackTintColor = .darkGray
 		trackSlider.value = 0.0
-		//        trackSlider.minimumValue = 0
 		trackSlider.maximumValue = Float(player!.duration)
-
 		trackSlider.value = Float(player!.currentTime)
 		trackSlider.addTarget(self, action: #selector(trackSliderAction), for: .valueChanged)
 		holder.addSubview(trackSlider)
+
+		// MARK: - Left Timer Label
+		leftTimeLabel.frame = CGRect(x: 20,
+									 y: holder.frame.size.height-265,
+									 width: 50,
+									 height: 20)
+	}
+
+	private func formattedTime() -> String {
+		let minutes = Int(Double(player!.currentTime)) / 60
+		let seconds = Int(Double(player!.currentTime)) % 60
+		return String(format: "%02d:%02d", minutes, seconds)
 	}
 
 	@objc
 	private func updateProgress() {
 		trackSlider.value = Float(player!.currentTime)
 
-		//elapsedTimeLabel.text = getFormattedTime(timeInterval: player.currentTime)
-		//let remainingTime = player.duration - player?.currentTime
-		//remainingTimeLabel.text = getFormattedTime(timeInterval: remainingTime)
+		leftTimeLabel.text = formattedTime()
 	}
 
 	@objc func didTapBackButton() {
@@ -268,12 +280,6 @@ class PlayerViewController: UIViewController {
 
 			// shrink image
 			shrinkImage()
-//			UIView.animate(withDuration: 0.2, animations: {
-//				self.albumImageView.frame = CGRect(x: 30,
-//												   y: 30,
-//												   width: self.holder.frame.size.width-60,
-//												   height: self.holder.frame.size.width-60)
-//			})
 		}
 		else {
 			// play
@@ -282,12 +288,6 @@ class PlayerViewController: UIViewController {
 
 			// increase image size
 			expandImage()
-//			UIView.animate(withDuration: 0.2, animations: {
-//				self.albumImageView.frame = CGRect(x: 10,
-//												   y: 10,
-//												   width: self.holder.frame.size.width-20,
-//												   height: self.holder.frame.size.width-20)
-//			})
 		}
 	}
 
@@ -309,21 +309,25 @@ class PlayerViewController: UIViewController {
 		})
 	}
 
-	@objc func didSlideSlider(_ slider: UISlider) {
+	@objc func didSlideVolumeSlider(_ slider: UISlider) {
 		let value = slider.value
 		player?.volume = value
 	}
 
-
-	// MARK: - Song tracking
+	// MARK: - Track Slider Action
 	@objc private func trackSliderAction() {
-		player?.pause()
-		let currentTime = Float64(trackSlider.value)
-		player?.currentTime = TimeInterval(currentTime)
-		player?.play()
+		if player?.isPlaying == true {
+			player?.pause()
+			let currentTime = Float64(trackSlider.value)
+			player?.currentTime = TimeInterval(currentTime)
+			player?.play()
+		} else {
+			player?.stop()
+			let currentTime = Float64(trackSlider.value)
+			player?.currentTime = TimeInterval(currentTime)
+//			player?.pause()
+		}
 	}
-
-
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
