@@ -61,6 +61,16 @@ class PlayerViewController: UIViewController {
 //		label.text = "1:52"
 		return label
 	}()
+    
+    private let rightTimeLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.numberOfLines = 0 // line wrap
+//        label.backgroundColor = .yellow
+        label.font = .GameOfThrones.basic.size(of: 12)
+        label.text = "1:52"
+        return label
+    }()
 
 	private lazy var playPauseButton = UIButton()
 	private lazy var trackSlider = UISlider()
@@ -144,6 +154,7 @@ class PlayerViewController: UIViewController {
 		holder.addSubview(songNameLabel)
 		holder.addSubview(artistNameLabel)
 		holder.addSubviews(leftTimeLabel)
+        holder.addSubview(rightTimeLabel)
 
 		// MARK: - Player controls
 		let nextButton = UIButton()
@@ -230,10 +241,20 @@ class PlayerViewController: UIViewController {
 		holder.addSubview(trackSlider)
 
 		// MARK: - Left Timer Label
-		leftTimeLabel.frame = CGRect(x: 20,
-									 y: holder.frame.size.height-265,
-									 width: 50,
-									 height: 20)
+		leftTimeLabel.frame = CGRect(
+            x: 20,
+            y: holder.frame.size.height-265,
+            width: 50,
+            height: 20
+        )
+        
+        // MARK: - Right Timer Label
+        rightTimeLabel.frame = CGRect(
+            x: holder.frame.size.width-40,
+            y: holder.frame.size.height-265,
+            width: 50,
+            height: 20
+        )
 	}
 
 	private func formattedTime() -> String {
@@ -241,12 +262,20 @@ class PlayerViewController: UIViewController {
 		let seconds = Int(Double(player!.currentTime)) % 60
 		return String(format: "%02d:%02d", minutes, seconds)
 	}
+    
+    private func countdownFormattedTime() -> String {
+        let minutes = Int(Double(player!.duration) - Double(player!.currentTime)) / 60
+        let seconds = Int(Double(player!.duration) - Double(player!.currentTime)) % 60
+        return String(format: "%02d:%02d", minutes, seconds)
+    }
+    
 
 	@objc
 	private func updateProgress() {
 		trackSlider.value = Float(player!.currentTime)
 
 		leftTimeLabel.text = formattedTime()
+        rightTimeLabel.text = countdownFormattedTime()
 	}
 
 	@objc func didTapBackButton() {
