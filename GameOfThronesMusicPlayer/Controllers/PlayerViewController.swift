@@ -242,7 +242,7 @@ class PlayerViewController: UIViewController {
 
 		// MARK: - Left Timer Label
 		leftTimeLabel.frame = CGRect(
-            x: 20,
+            x: 30,
             y: holder.frame.size.height-265,
             width: 50,
             height: 20
@@ -250,7 +250,7 @@ class PlayerViewController: UIViewController {
         
         // MARK: - Right Timer Label
         rightTimeLabel.frame = CGRect(
-            x: holder.frame.size.width-40,
+            x: holder.frame.size.width-60,
             y: holder.frame.size.height-265,
             width: 50,
             height: 20
@@ -266,7 +266,7 @@ class PlayerViewController: UIViewController {
     private func countdownFormattedTime() -> String {
         let minutes = Int(Double(player!.duration) - Double(player!.currentTime)) / 60
         let seconds = Int(Double(player!.duration) - Double(player!.currentTime)) % 60
-        return String(format: "%02d:%02d", minutes, seconds)
+        return String(format: "-%02d:%02d", minutes, seconds)
     }
     
 

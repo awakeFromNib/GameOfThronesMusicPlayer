@@ -105,7 +105,7 @@ class MusicViewController: UIViewController {
 						  albumName: "Game Of Thrones OST",
 						  artistName: "Ramin Djawadi",
 						  imageName: "gameofthrones2",
-						  trackName: "WinterIsHere"))
+						  trackName: "MotherOfDragons"))
 		songs.append(Song(name: "FINALE",
 						  albumName: "Game Of Thrones OST",
 						  artistName: "Ramin Djawadi",
